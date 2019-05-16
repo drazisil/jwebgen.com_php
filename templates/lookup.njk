@@ -1,0 +1,59 @@
+{% extends "site.njk" %}
+{% block title %}Test{% endblock %}
+{% block styles %}{{ super() }}
+{% endblock %}
+{% block scripts %}{{ super() }}
+  <script type="text/javascript" src="/assets/js_ajax.js"></script>
+  <script type="text/javascript" src="/assets/js_lookup.js"></script>
+{% endblock %}
+{% block content %}{{ super() }}
+
+  <div>
+    <table>
+      <tr>
+        <td id="tdponyLookupForm">
+          <form name="ponyLookupForm" id="ponyLookupForm" method="get" action="controller.php" onsubmit="return ajaxQuery('GET', generateLookupURL(), 'ponyLookupZone');
+                                    return false;">
+            <table>
+              <tr>
+                <td>Please paste the profile or image URL</td>
+                <td>
+                  <input type="text" size="20" maxlength="255" name="ponyurl" id="ponyurl"/>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>OR</td>
+              </tr>
+              <tr>
+                <td>Please post the Pony ID</td>
+                <td>
+                  <input type="text" size="20" maxlength="20" id="ponyid" name="ponyid"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Would you like an adult or baby image?</td>
+                <td>
+                  <select id="idage" name="idage">
+                    <option value="Adult" selected="selected">Adult</option>
+                    <option value="Baby">Baby</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <input name="nextAction" value="ponyLookup" type="hidden"/>
+                  <input name="DecodeByIDExport" id="DecodeByIDExport" value="Lookup" type="submit"/>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </td>
+        <td>
+          <div id="ponyLookupZone"></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+{% endblock %}

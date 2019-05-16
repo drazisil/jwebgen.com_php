@@ -26,4 +26,18 @@ async function handleController(req, res) {
   res.status(500).send(`nextAction ${nextAction} not implemented`)
 }
 
-module.exports = { handleController }
+async function handleIndex(req, res) {
+  res.render('index', { title: 'Hey', message: 'Hello there!', name: 'Foo' })
+}
+
+async function handleLookup(req, res) {
+  res.render('lookup', { title: 'Hey', message: 'Hello there!', name: 'Foo' })
+}
+
+async function renderPony(req, res) {
+  const { ponyid } = req.query
+  const pony = await fetchPony(ponyid)
+  res.render('pony', { pony })
+}
+
+module.exports = { handleController, handleIndex, handleLookup, renderPony }
