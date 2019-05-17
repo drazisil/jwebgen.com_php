@@ -1,23 +1,14 @@
 <template>
   <div>
-    <script2 type="text/javascript" src="/assets/js_ajax.js"></script2>
-    <script2 type="text/javascript" src="/assets/js_lookup.js"></script2>
     <table>
       <tr>
         <td id="tdponyLookupForm">
-          <form
-            name="ponyLookupForm"
-            id="ponyLookupForm"
-            method="get"
-            action="controller.php"
-            onsubmit="return ajaxQuery('GET', generateLookupURL(), 'ponyLookupZone');
-                                    return false;"
-          >
+          <form id="ponyLookupForm">
             <table>
               <tr>
                 <td>Please paste the profile or image URL</td>
                 <td>
-                  <input type="text" size="20" maxlength="255" name="ponyurl" id="ponyurl">
+                  <input v-model="ponyurl" type="text" size="20" maxlength="255" id="ponyurl">
                 </td>
               </tr>
               <tr>
@@ -27,14 +18,21 @@
               <tr>
                 <td>Please post the Pony ID</td>
                 <td>
-                  <input type="text" size="20" maxlength="20" id="ponyid" name="ponyid">
+                  <input
+                    v-model="ponyid"
+                    type="text"
+                    size="20"
+                    maxlength="20"
+                    id="ponyid"
+                    name="ponyid"
+                  >
                 </td>
               </tr>
               <tr>
                 <td>Would you like an adult or baby image?</td>
                 <td>
-                  <select id="idage" name="idage">
-                    <option value="Adult" selected="selected">Adult</option>
+                  <select v-model="idage" id="idage">
+                    <option value="Adult">Adult</option>
                     <option value="Baby">Baby</option>
                   </select>
                 </td>
@@ -43,14 +41,20 @@
                 <td></td>
                 <td>
                   <input name="nextAction" value="ponyLookup" type="hidden">
-                  <input name="DecodeByIDExport" id="DecodeByIDExport" value="Lookup" type="submit">
+                  <input
+                    name="DecodeByIDExport"
+                    id="DecodeByIDExport"
+                    value="Lookup"
+                    type="submit"
+                    v-on:click.prevent="popup"
+                  >
                 </td>
               </tr>
             </table>
           </form>
         </td>
         <td>
-          <div id="ponyLookupZone"></div>
+          <div v-if="pony['Name']">{{ pony }}</div>
         </td>
       </tr>
     </table>
@@ -58,6 +62,7 @@
 </template>
 
 <script>
+import ky from "ky";
 import TopBar from "../components/TopBar.vue";
 import GoogleAd from "../components/GoogleAdd.vue";
 import NavMenu from "../components/NavMenu.vue";
@@ -65,7 +70,25 @@ import Footer from "../components/Footer.vue";
 export default {
   data: function() {
     return {
-      greeting: "Hello"
+      ponyurl: "",
+      ponyid: "",
+      idage: "Adult",
+      greeting: "Hello",
+      pony: {
+        ID: 0,
+        Name: "",
+        BreedID: "",
+        Gender: "",
+        Colors: {
+          Eyes: "",
+          Hair: "",
+          Hair2: "",
+          Body: "",
+          Extra1: "",
+          Extra2: ""
+        },
+        Genes: []
+      }
     };
   },
   components: {
@@ -73,6 +96,14 @@ export default {
     GoogleAd,
     NavMenu,
     Footer
+  },
+  methods: {
+    popup: async function() {
+      const parsed = await ky
+        .get(`/api/pony?nextAction=ponyLookup&ponyid=${this.ponyid}`)
+        .json();
+      this.pony = parsed;
+    }
   }
 };
 </script>
