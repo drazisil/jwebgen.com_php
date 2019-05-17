@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "prestart": "webpack",
+    "prestart": "eslint src",
     "start:dev": "webpack-dev-server",
     "start": "concurrently --kill-others \"npm run start:dev\" \"nodemon server.js\"",
     "webpack": "webpack",
@@ -36,8 +36,14 @@
     "concurrently": "^4.1.0",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-vue": "^5.2.2",
     "http-proxy-middleware": "^0.19.1",
     "nodemon": "^1.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
@@ -48,6 +54,14 @@
   "nodemonConfig": {
     "ignore": [
       "dist/**/*"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/essential",
+      "plugin:prettier/recommended",
+      "eslint:recommended"
     ]
   }
 }
