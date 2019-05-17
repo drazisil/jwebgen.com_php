@@ -54,7 +54,9 @@
           </form>
         </td>
         <td>
-          <div v-if="pony['Name']">{{ pony }}</div>
+          <div v-if="pony['Name']">
+            <NamedPony v-bind:pony="pony"/>
+          </div>
         </td>
       </tr>
     </table>
@@ -67,6 +69,7 @@ import TopBar from "../components/TopBar.vue";
 import GoogleAd from "../components/GoogleAdd.vue";
 import NavMenu from "../components/NavMenu.vue";
 import Footer from "../components/Footer.vue";
+import NamedPony from "../components/NamedPony.vue";
 export default {
   data: function() {
     return {
@@ -95,7 +98,8 @@ export default {
     TopBar,
     GoogleAd,
     NavMenu,
-    Footer
+    Footer,
+    NamedPony
   },
   methods: {
     popup: async function() {
