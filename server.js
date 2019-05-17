@@ -1,15 +1,8 @@
 const express = require('express')
-const {
-  handleController,
-  handleIndex,
-  handleLookup,
-  renderPony,
-} = require('./src/index')
+const { handleController, renderPony } = require('./app/index')
 const app = express()
-const expressNunjucks = require('express-nunjucks')
 var cors = require('cors')
 
-const isDev = app.get('env') === 'development'
 const port = 3000
 
 var options = {
@@ -25,14 +18,6 @@ var options = {
 
 app.use(cors())
 
-app.set('views', __dirname + '/templates')
-
-app.set('view engine', 'njk')
-const njk = expressNunjucks(app, {
-  watch: isDev,
-  noCache: isDev,
-})
-
 app.use(function(req, res, next) {
   console.log(`Requested: ${req.url} via ${req.method}`)
   next() // pass control to the next handler
@@ -43,14 +28,9 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!')
 })
 
-app.get('/', handleIndex)
-
-app.get('/lookup', handleLookup)
-
 app.get('/pony', renderPony)
 
-app.use(express.static('public', options))
-app.use(express.static('src', options))
+app.use(express.static('dist', options))
 
 app.get('/controller', handleController)
 
