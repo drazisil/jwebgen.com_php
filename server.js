@@ -28,11 +28,11 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!')
 })
 
-app.get('/pony', renderPony)
+app.get('/api/pony', renderPony)
 
 app.use(express.static('dist', options))
 
-app.get('/controller', handleController)
+app.get('/api/controller', handleController)
 
 app.use(function(req, res, next) {
   console.log(`Unable to locate: ${req.url} via ${req.method}`)

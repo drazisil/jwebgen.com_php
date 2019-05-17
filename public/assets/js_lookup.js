@@ -13,7 +13,7 @@ function generateLookupURL() {
 
   ajaxURL = ''
 
-  ajaxURL = 'pony?'
+  ajaxURL = '/api/pony?'
   ajaxURL += '&ponyid=' + document.forms[0].ponyid.value
 
   ajaxURL +=

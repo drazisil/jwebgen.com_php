@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "prestart": "webpack",
-    "start": "concurrently --kill-others \"webpack --watch\" \"nodemon server.js\"",
+    "start:dev": "webpack-dev-server",
+    "start": "concurrently --kill-others \"npm run start:dev\" \"nodemon server.js\"",
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,7 +24,9 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "got": "^9.6.0",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6",
+    "vue-script2": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -32,12 +35,14 @@
     "concurrently": "^4.1.0",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
+    "http-proxy-middleware": "^0.19.1",
     "nodemon": "^1.19.0",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.0"
   },
   "nodemonConfig": {
     "ignore": [
