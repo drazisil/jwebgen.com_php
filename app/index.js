@@ -1,4 +1,3 @@
-const got = require('got')
 const { fetchPony } = require('./piproxy')
 
 async function handlePonyLookup(req, res) {

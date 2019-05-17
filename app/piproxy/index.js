@@ -1,21 +1,13 @@
-const got = require('got')
+const ky = require('ky-universal')
 
 async function _fetchBreed(breedid) {
-  const result = JSON.parse(
-    (await got(`https://get.ponyisland.net?breed=${breedid}`, {
-      responseType: 'json',
-    })).body
-  )
+  const result = await ky(`https://get.ponyisland.net?breed=${breedid}`).json()
   console.dir(result)
   return result
 }
 
 async function _fetchPony(ponyid) {
-  const result = JSON.parse(
-    (await got(`https://get.ponyisland.net?pony=${ponyid}`, {
-      responseType: 'json',
-    })).body
-  )
+  const result = await ky(`https://get.ponyisland.net?pony=${ponyid}`).json()
   return result
 }
 
