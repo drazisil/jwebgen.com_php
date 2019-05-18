@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./views/App.vue";
 import Index from "./views/Index.vue";
+import Generate from "./views/Generate.vue";
 import Lookup from "./views/Lookup.vue";
 import VS2 from "vue-script2";
 
@@ -16,6 +17,7 @@ Vue.use(VueRouter);
 // We'll talk about nested routes later.
 const routes = [
   { path: "/", component: Index },
+  { path: "/generate", component: Generate },
   { path: "/lookup", component: Lookup }
 ];
 
