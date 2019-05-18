@@ -29,25 +29,15 @@
                 <tr>
                   <td>Breed</td>
                   <td>
-                    <select v-model="breed" name="breed">
-                      <option value="4">EarthPony</option>
-                      <option value="5">Unicorn</option>
-                      <option value="8">MerPony</option>
-                      <option value="1">SeaPony</option>
-                      <option value="6">ShellPony</option>
-                      <option value="7">FairyPony</option>
-                      <option value="3">FlutterPony</option>
-                      <option value="2">Pegasus</option>
-                      <option value="10">WingedUnicorn</option>
-                      <option value="9">DragonPony</option>
-                      <option value="11">PhoenixPony</option>
-                      <option value="12">Valkyrie</option>
-                      <option value="13">KirinPony</option>
-                      <option value="14">MerDragon</option>
-                      <option value="15">WishingPony</option>
-                      <option value="16">PurrPony</option>
-                      <option value="17">ReindeerPony</option>
-                      <option value="18">MountainPony</option>
+                    <select v-if="breedList.length > 0" v-model="breed" name="breed">
+                      <option
+                        v-for="breed in breedList"
+                        v-bind:key="breed['ID']"
+                        v-bind:value="breed['ID']"
+                      >{{breed['Name']}}</option>
+                    </select>
+                    <select v-else>
+                      <option>Loading breeds...</option>
                     </select>
                   </td>
                   <td></td>
@@ -297,6 +287,8 @@ import NamedPony from "../components/NamedPony.vue";
 export default {
   data: function() {
     return {
+      breedList: [],
+      geneList: [],
       breed: 4,
       gender: "Male",
       age: "Adult",
@@ -334,7 +326,19 @@ export default {
     Footer,
     NamedPony
   },
+  mounted: async function() {
+    await this.fetchBreedList();
+    await this.fetchGeneList();
+  },
   methods: {
+    fetchBreedList: async function() {
+      const breedList = await ky.get(`/api/breedlist`).json();
+      this.breedList = breedList;
+    },
+    fetchGeneList: async function() {
+      const geneList = await ky.get(`/api/genelist`).json();
+      this.geneList = geneList;
+    },
     genponyjs: async function() {
       //   const parsed = await ky
       //     .get(`/api/pony?nextAction=ponyGenerate&ponyid=${this.ponyid}`)

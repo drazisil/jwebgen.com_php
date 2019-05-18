@@ -1,18 +1,17 @@
 const ky = require('ky-universal')
+const db = require('../database')
 
-async function _fetchBreed(breedid) {
+async function _fetchBreedFromPI(breedid) {
   const result = await ky(`https://get.ponyisland.net?breed=${breedid}`).json()
-  console.dir(result)
   return result
 }
 
-async function _fetchGene(geneid) {
+async function _fetchGeneFromPI(geneid) {
   const result = await ky(`https://get.ponyisland.net?gene=${geneid}`).json()
-  console.dir(result)
   return result
 }
 
-async function _fetchPony(ponyid) {
+async function _fetchPonyFromPI(ponyid) {
   const result = await ky(`https://get.ponyisland.net?pony=${ponyid}`).json()
   return result
 }
@@ -20,8 +19,8 @@ async function _fetchPony(ponyid) {
 // Example pony: 34816503
 
 async function fetchPony(ponyid) {
-  const pony = await _fetchPony(ponyid)
-  pony['BreedID'] = (await _fetchBreed(pony['BreedID']))['Name']
+  const pony = await _fetchPonyFromPI(ponyid)
+  pony['BreedID'] = (await _fetchBreedFromPI(pony['BreedID']))['Name']
   delete pony['OwnerID']
   delete pony['Level']
   delete pony['Skills']
@@ -30,36 +29,82 @@ async function fetchPony(ponyid) {
   return pony
 }
 
-async function fetchBreedList() {
+async function _fetchBreedListFromPI() {
   let breedid = 1
   let breedListComplete = false
   let breedList = []
   while (breedListComplete === false) {
-    breed = await _fetchBreed(breedid)
+    breed = await _fetchBreedFromPI(breedid)
     if (breed['Name'] === null) {
       breedListComplete = true
+      _updateBreedList(breedList)
       return breedList
     }
     breedList.push(breed)
     breedid++
   }
-  return breedList
 }
 
-async function fetchGeneList() {
+async function fetchBreedList() {
+  // Check if breed list exists in database
+
+  // If not, fetch and populate it
+  return _fetchBreedListFromPI()
+}
+
+async function _updateBreedList(breedList) {
+  await Promise.all(
+    breedList.map(async breed => {
+      try {
+        await db.run(
+          'INSERT OR REPLACE INTO breeds (`id`, `name`) VALUES (?, ?)',
+          [breed['ID'], breed['Name']]
+        )
+      } catch (error) {
+        throw error
+      }
+    })
+  )
+  console.log(`Updated breed list in database`)
+}
+
+async function _updateGeneList(geneList) {
+  await Promise.all(
+    geneList.map(async gene => {
+      try {
+        await db.run(
+          'INSERT OR REPLACE INTO genes (`id`, `name`) VALUES (?, ?)',
+          [gene['ID'], gene['Name']]
+        )
+      } catch (error) {
+        throw error
+      }
+    })
+  )
+  console.log(`Updated gene list in database`)
+}
+
+async function _fetchGeneListFromPI() {
   let geneid = 1
   let geneListComplete = false
   let geneList = []
   while (geneListComplete === false) {
-    gene = await _fetchGene(geneid)
+    gene = await _fetchGeneFromPI(geneid)
     if (gene['Name'] === null) {
       geneListComplete = true
+      _updateGeneList(geneList)
       return geneList
     }
     geneList.push(gene)
     geneid++
   }
-  return geneList
+}
+
+async function fetchGeneList() {
+  // Check if gene list is in db
+
+  // If not, fetch and populate it
+  return _fetchGeneListFromPI()
 }
 
 module.exports = { fetchBreedList, fetchGeneList, fetchPony }

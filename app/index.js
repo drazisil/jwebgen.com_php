@@ -12,6 +12,7 @@ async function handleBreedList(req, res) {
 async function handleGeneList(req, res) {
   console.log('In geneList')
   const geneList = await fetchGeneList()
+  console.dir(geneList)
   res.send(geneList)
 
   // return res.status(500).send(`ponyLookup not implemented`)

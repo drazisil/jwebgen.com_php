@@ -1,5 +1,6 @@
 const express = require('express')
 const {
+  init,
   handleBreedList,
   handleGeneList,
   handleController,
@@ -48,9 +49,9 @@ app.use(function(req, res, next) {
   res.status(404).send("Sorry can't find that!")
 })
 
-const server = app.listen(port, () =>
+const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)
-)
+})
 
 process.once('SIGUSR2', function() {
   server.close(function() {

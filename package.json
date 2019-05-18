@@ -25,6 +25,7 @@
     "express": "^4.16.4",
     "ky": "^0.11.0",
     "ky-universal": "^0.2.0",
+    "sqlite3": "^4.0.8",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
     "vue-script2": "^2.0.3"
@@ -43,7 +44,6 @@
     "http-proxy-middleware": "^0.19.1",
     "nodemon": "^1.19.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
