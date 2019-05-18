@@ -1,5 +1,10 @@
 const express = require('express')
-const { handleController, renderPony } = require('./app/index')
+const {
+  handleBreedList,
+  handleGeneList,
+  handleController,
+  renderPony,
+} = require('./app/index')
 const app = express()
 var cors = require('cors')
 
@@ -29,6 +34,10 @@ app.use(function(err, req, res, next) {
 })
 
 app.get('/api/pony', renderPony)
+
+app.get('/api/breedlist', handleBreedList)
+
+app.get('/api/genelist', handleGeneList)
 
 app.use(express.static('dist', options))
 
