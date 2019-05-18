@@ -369,8 +369,6 @@ div#footer,
   margin: 0px auto;
 }
 span.formLabel {
-  float: left;
-  width: 6em;
   display: inline;
 }
 span.hexColor {
