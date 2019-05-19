@@ -1,65 +1,37 @@
 <template>
   <v-container>
-    <table>
-      <tr>
-        <td id="tdponyLookupForm">
-          <form id="ponyLookupForm">
-            <table>
-              <tr>
-                <td>Please paste the profile or image URL</td>
-                <td>
-                  <input v-model="ponyurl" type="text" size="20" maxlength="255" id="ponyurl">
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>OR</td>
-              </tr>
-              <tr>
-                <td>Please post the Pony ID</td>
-                <td>
-                  <input
+    <v-layout row wrap>
+    <v-flex xs6>
+          <v-form>
+                  <v-text-field label="Pony URL" placeholder="Please paste the profile or image URL" v-model="ponyurl" type="text" size="20" maxlength="255" id="ponyurl"></v-text-field>
+                OR
+                  <v-text-field
+                  label="Pony ID"
+                  placeholder="Please post the Pony ID"
                     v-model="ponyid"
                     type="text"
                     size="20"
                     maxlength="20"
                     id="ponyid"
                     name="ponyid"
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>Would you like an adult or baby image?</td>
-                <td>
-                  <select v-model="idage" id="idage">
-                    <option value="Adult">Adult</option>
-                    <option value="Baby">Baby</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <input name="nextAction" value="ponyLookup" type="hidden">
-                  <input
+                  ></v-text-field
+                  <v-select label="
+                  Would you like an adult or baby image?" v-model="idage" id="idage" :items="ageList"></v-select>
+                  <v-btn
                     name="DecodeByIDExport"
                     id="DecodeByIDExport"
                     value="Lookup"
                     type="submit"
                     v-on:click.prevent="popup"
-                  >
-                </td>
-              </tr>
-            </table>
-          </form>
-        </td>
-        <td>
+                  >Lookup</v-btn>
+          </v-form>
+          </v-flex>
+          <v-flex xs6>
           <div v-if="pony['Name']">
             <NamedPony v-bind:pony="pony"/>
           </div>
-        </td>
-      </tr>
-    </table>
+          </v-flex>
+          </v-layout>
   </v-container>
 </template>
 
@@ -73,6 +45,7 @@ import NamedPony from "../components/NamedPony.vue";
 export default {
   data: function() {
     return {
+      ageList: ['Baby', 'Adult'],
       ponyurl: "",
       ponyid: "",
       idage: "Adult",
