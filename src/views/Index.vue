@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <h1>JWebGen Pony Generator</h1>
 
     <p>
@@ -46,7 +46,7 @@
         link.
       </li>
     </ul>
-  </div>
+  </v-container>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <TopBar/>
     <p>
       <br>
@@ -10,7 +10,7 @@
       <router-view></router-view>
     </div>
     <Footer/>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-body {
+/* body {
   margin: 0px;
   padding: 0px;
   font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -60,5 +60,5 @@ span.formLabel {
 span.hexColor {
   margin-top: 0px;
   padding: 0em 1em;
-}
+} */
 </style>

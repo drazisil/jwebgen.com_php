@@ -2,6 +2,7 @@ const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -20,6 +21,11 @@ module.exports = {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader'],
       },
+      { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: ['file-loader'],
+      },
     ],
   },
   output: {
@@ -29,6 +35,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new VueLoaderPlugin(),
+    new VuetifyLoaderPlugin(),
     new CopyPlugin([{ from: 'public', to: '.' }]),
   ],
   resolve: {

@@ -5,6 +5,12 @@ import Index from "./views/Index.vue";
 import Generate from "./views/Generate.vue";
 import Lookup from "./views/Lookup.vue";
 import VS2 from "vue-script2";
+import Vuetify from "vuetify";
+
+import "vuetify/dist/vuetify.min.css";
+import "material-design-icons-iconfont/dist/material-design-icons.css";
+
+Vue.use(Vuetify);
 
 Vue.use(VS2);
 

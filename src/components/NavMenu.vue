@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 #navMenu {
-  width: 800px;
+  width: 900px;
   margin: 0px auto;
 }
 
@@ -60,7 +60,7 @@ export default {
   border-top-left-radius: 10px;
   -moz-border-top-right-radius: 10px;
   border-top-right-radius: 10px;
-  width: 75px;
+  width: 100px;
   text-align: center;
 }
 

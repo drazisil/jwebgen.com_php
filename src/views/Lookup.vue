@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <table>
       <tr>
         <td id="tdponyLookupForm">
@@ -60,7 +60,7 @@
         </td>
       </tr>
     </table>
-  </div>
+  </v-container>
 </template>
 
 <script>
