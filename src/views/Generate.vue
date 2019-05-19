@@ -32,9 +32,9 @@
                     <select v-if="breedList.length > 0" v-model="breed" name="breed">
                       <option
                         v-for="breed in breedList"
-                        v-bind:key="breed['ID']"
-                        v-bind:value="breed['ID']"
-                      >{{breed['Name']}}</option>
+                        v-bind:key="breed['id']"
+                        v-bind:value="breed['id']"
+                      >{{breed['name']}}</option>
                     </select>
                     <select v-else>
                       <option>Loading breeds...</option>
@@ -151,6 +151,27 @@
                     <span id="extra2Color" class="colorPicker">&nbsp;</span>
                   </td>
                   <td></td>
+                </tr>
+                <tr>
+                  <td>Breed</td>
+                  <td>
+                    <select
+                      v-if="geneList.length > 0"
+                      v-model="genes"
+                      name="genes"
+                      id="genes"
+                      multiple
+                    >
+                      <option
+                        v-for="gene in geneList"
+                        v-bind:key="gene['id']"
+                        v-bind:value="gene['id']"
+                      >{{gene['name']}}</option>
+                    </select>
+                    <select v-else>
+                      <option>Loading genes...</option>
+                    </select>
+                  </td>
                 </tr>
                 <tr>
                   <td>Pattern</td>

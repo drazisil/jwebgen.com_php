@@ -47,6 +47,11 @@ async function _fetchBreedListFromPI() {
 
 async function fetchBreedList() {
   // Check if breed list exists in database
+  const breedList = await _fetchBreedListFromDB()
+  if (breedList.length > 0) {
+    console.log(`Fetched breedList from DB with ${breedList.length} rows.`)
+    return breedList
+  }
 
   // If not, fetch and populate it
   return _fetchBreedListFromPI()
@@ -84,6 +89,22 @@ async function _updateGeneList(geneList) {
   console.log(`Updated gene list in database`)
 }
 
+async function _fetchBreedListFromDB() {
+  try {
+    return await db.all('SELECT * FROM breeds', [])
+  } catch (error) {
+    throw error
+  }
+}
+
+async function _fetchGeneListFromDB() {
+  try {
+    return await db.all('SELECT * FROM genes', [])
+  } catch (error) {
+    throw error
+  }
+}
+
 async function _fetchGeneListFromPI() {
   let geneid = 1
   let geneListComplete = false
@@ -102,6 +123,11 @@ async function _fetchGeneListFromPI() {
 
 async function fetchGeneList() {
   // Check if gene list is in db
+  const geneList = await _fetchGeneListFromDB()
+  if (geneList.length > 0) {
+    console.log(`Fetched geneList from DB with ${geneList.length} rows.`)
+    return geneList
+  }
 
   // If not, fetch and populate it
   return _fetchGeneListFromPI()

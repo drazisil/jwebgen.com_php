@@ -3,7 +3,6 @@ const { fetchBreedList, fetchGeneList, fetchPony } = require('./piproxy')
 async function handleBreedList(req, res) {
   console.log('In breedList')
   const breedList = await fetchBreedList()
-  console.dir(breedList)
   res.send(breedList)
 
   // return res.status(500).send(`ponyLookup not implemented`)
@@ -12,7 +11,6 @@ async function handleBreedList(req, res) {
 async function handleGeneList(req, res) {
   console.log('In geneList')
   const geneList = await fetchGeneList()
-  console.dir(geneList)
   res.send(geneList)
 
   // return res.status(500).send(`ponyLookup not implemented`)

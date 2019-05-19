@@ -9,6 +9,28 @@ db.run(
   'CREATE TABLE IF NOT EXISTS `breeds` (id INTEGER, name TEXT, PRIMARY KEY(id))'
 )
 
+async function get(statement, params) {
+  return new Promise((resolve, reject) => {
+    db.get(statement, params, err => {
+      if (err) {
+        reject(err)
+      }
+      resolve()
+    })
+  })
+}
+
+async function all(statement, params) {
+  return new Promise((resolve, reject) => {
+    db.all(statement, params, (err, rows) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(rows)
+    })
+  })
+}
+
 async function run(statement, params) {
   return new Promise((resolve, reject) => {
     db.run(statement, params, err => {
@@ -20,4 +42,4 @@ async function run(statement, params) {
   })
 }
 
-module.exports = { run }
+module.exports = { all, get, run }
