@@ -6,9 +6,9 @@
       <br>
     </p>
     <NavMenu/>
-    <div id="content">
+    <v-content>
       <router-view></router-view>
-    </div>
+    </v-content>
     <Footer/>
   </v-app>
 </template>
